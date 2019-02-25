@@ -29,6 +29,7 @@ import qualified Data.ByteString            as B
 import qualified Data.ByteString.Char8      as C
 import           Data.Char
 import           Data.List
+import           Data.Monoid                ((<>))
 import           Data.Text                  (Text)
 import qualified Data.Text                  as T
 import qualified Data.Text.Encoding         as E

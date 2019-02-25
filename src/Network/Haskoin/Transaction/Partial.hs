@@ -38,6 +38,7 @@ import           Data.HashMap.Strict         (HashMap)
 import qualified Data.HashMap.Strict         as HashMap
 import           Data.List                   (foldl')
 import           Data.Maybe                  (fromMaybe, isJust)
+import           Data.Monoid                 ((<>))
 import           Data.Serialize              as S
 import           GHC.Generics                (Generic)
 import           GHC.Word                    (Word32, Word8)
@@ -91,7 +92,7 @@ data Output = Output
 -- | A map of raw PSBT keys to byte strings for extra data. The 'keyType' field cannot overlap with any of the reserved
 -- 'keyType' fields specified in the PSBT specification.
 newtype UnknownMap = UnknownMap { unknownMap :: HashMap Key ByteString }
-    deriving (Show, Eq, Semigroup, Monoid)
+    deriving (Show, Eq, Monoid)
 
 -- | Raw keys for the map type used in PSBTs.
 data Key = Key

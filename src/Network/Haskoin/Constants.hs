@@ -27,6 +27,7 @@ module Network.Haskoin.Constants
 import           Data.ByteString              (ByteString)
 import           Data.List
 import           Data.Maybe
+import           Data.Monoid                  ((<>))
 import           Data.Serialize
 import           Data.String
 import           Data.Text                    (Text)

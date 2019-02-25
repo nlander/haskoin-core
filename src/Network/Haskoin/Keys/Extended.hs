@@ -103,7 +103,7 @@ import           Data.Aeson.Types               (Parser)
 import           Data.Bits                      (clearBit, setBit, testBit)
 import           Data.ByteString                (ByteString)
 import qualified Data.ByteString                as B
-import           Data.Either                    (fromRight)
+import           Data.Either                    (either)
 import           Data.List                      (foldl')
 import           Data.List.Split                (splitOn)
 import           Data.Maybe                     (fromMaybe)
@@ -295,14 +295,14 @@ xPubID = ripemd160 . encode . sha256 . exportPubKey True . xPubKey
 -- | Computes the key fingerprint of an extended private key.
 xPrvFP :: XPrvKey -> Fingerprint
 xPrvFP =
-    fromRight err . decode . B.take 4 . encode . xPrvID
+    either (const err) id . decode . B.take 4 . encode . xPrvID
   where
     err = error "Could not decode xPrvFP"
 
 -- | Computes the key fingerprint of an extended public key.
 xPubFP :: XPubKey -> Fingerprint
 xPubFP =
-    fromRight err . decode . B.take 4 . encode . xPubID
+    either (const err) id . decode . B.take 4 . encode . xPubID
   where
     err = error "Could not decode xPubFP"
 

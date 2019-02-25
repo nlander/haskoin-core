@@ -9,7 +9,7 @@ Portability : POSIX
 module Network.Haskoin.Test.Transaction where
 import           Control.Monad
 import qualified Data.ByteString             as BS
-import           Data.Either                 (fromRight)
+import           Data.Either                 (either)
 import           Data.List                   (nub, nubBy, permutations)
 import           Data.Word                   (Word64)
 import           Network.Haskoin.Address
@@ -232,7 +232,7 @@ arbitraryPartialTxs net = do
     singleSig so val rdmM tx op prv = do
         sh <- arbitraryValidSigHash net
         let sigi = SigInput so val op sh rdmM
-        return . fromRight (error "Colud not decode transaction") $
+        return . either (const $ error "Colud not decode transaction") id $
             signTx net tx [sigi] [prv]
     arbitraryData = do
         (m, n) <- arbitraryMSParam

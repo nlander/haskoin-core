@@ -38,7 +38,7 @@ import           Data.ByteString         (ByteString)
 import qualified Data.ByteString         as BS
 import           Data.ByteString.Short   (ShortByteString)
 import qualified Data.ByteString.Short   as BSS
-import           Data.Either             (fromRight)
+import           Data.Either             (either)
 import           Data.Hashable           (Hashable)
 import           Data.Serialize          (Serialize (..), decode)
 import qualified Data.Serialize.Get      as Get
@@ -165,7 +165,7 @@ addressHash =
 
 -- | Computes a 32 bit checksum.
 checkSum32 :: ByteArrayAccess b => b -> CheckSum32
-checkSum32 = fromRight (error "Colud not decode bytes as CheckSum32")
+checkSum32 = either (const $ error "Colud not decode bytes as CheckSum32") id
              . decode
              . BS.take 4
              . BA.convert
